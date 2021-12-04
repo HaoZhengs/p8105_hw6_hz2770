@@ -1,0 +1,39 @@
+---
+title: "p8105_hw6_hz2770"
+author: "Hao Zheng"
+date: "11/30/2021"
+output: github_document
+---
+
+```{r}
+library(tidyverse)
+library(modelr)
+library(mgcv)
+
+birthweight_data = read.csv("./data/birthweight.csv")
+```
+
+## Problem 1
+
+First, clean the birthweight dataset.
+```{r}
+birthweight_data = 
+  birthweight_data %>% 
+  mutate(
+    babysex = as.factor(babysex),
+    babysex = fct_recode(babysex, "male" = "1", "female" = "2"),
+    
+    frace = as.factor(frace),
+    frace = fct_recode(frace, "White" = "1", "Black" = "2", "Asian" = "3", "Puerto Rican" = "4", "Other" = "8"),
+    
+    malform = as.logical(malform),
+    
+    mrace = as.factor(mrace),
+    mrace = fct_recode(mrace, "White" = "1", "Black" = "2", "Asian" = "3", "Puerto Rican" = "4")
+  )
+
+birthweight_data %>% 
+  skimr::skim()
+```
+
+So there is no missing value in the dataset.
